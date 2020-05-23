@@ -11,6 +11,6 @@ jobs:
     - name: 'Log in to Docker Hub'
       run: echo ${{ secrets.DockerHubPassword }} | docker login -u kjjanak --password-stdin
     - name: 'Build the Docker image'
-      run: docker build -f Dockerfile -t kjjanak/ozrwebkjjanak/kjjanak-resume .
+      run: docker build -f Dockerfile -t kjjanak/kjjanak-resume .
     - name: 'Push base image'
       run: docker push kjjanak/kjjanak-resume
