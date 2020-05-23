@@ -1,0 +1,16 @@
+name: 'Docker Image CI'
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: 'Log in to Docker Hub'
+      run: echo ${{ secrets.DockerHubPassword }} | docker login -u kjjanak --password-stdin
+    - name: 'Build the Docker image'
+      run: docker build -f Dockerfile -t kjjanak/ozrwebkjjanak/kjjanak-resume .
+    - name: 'Push base image'
+      run: docker push kjjanak/kjjanak-resume
