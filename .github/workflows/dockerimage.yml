@@ -7,13 +7,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: Generate build number
+      uses: einaregilsson/build-number@v3
+      with:
+        token: ${{secrets.github_token}}        
+    - name: Print new build number
+      run: echo "Build number is $BUILD_NUMBER"
     - uses: actions/checkout@master
     - name: 'Log in to Docker Hub'
       run: echo ${{ secrets.DockerHubPassword }} | docker login -u kjjanak --password-stdin
     - name: 'Build the Docker image'
       run: docker build -f Dockerfile -t kjjanak/kjjanak-resume .
-    - name: 'Push base image'
-      run: docker push kjjanak/kjjanak-resume
+    - name: 'Push image part 1'
+      run: docker push kjjanak/kjjanak-resume:${{ steps.buildnumber.outputs.build_number }}
+    - name: 'Push image part 2'
+      run: docker push kjjanak/kjjanak-resume:latest
     - name: Discord notification
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
