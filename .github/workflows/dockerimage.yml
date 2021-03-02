@@ -21,6 +21,8 @@ jobs:
       run: docker build -f Dockerfile -t kjjanak/kjjanak-resume:${{ steps.buildnumber.outputs.build_number }} .
     - name: 'Push image part 1'
       run: docker push kjjanak/kjjanak-resume:${{ steps.buildnumber.outputs.build_number }}
+    - name: 'Push image part 2'
+      run: docker push kjjanak/kjjanak-resume
     - name: Discord notification
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
