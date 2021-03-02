@@ -14,3 +14,9 @@ jobs:
       run: docker build -f Dockerfile -t kjjanak/kjjanak-resume .
     - name: 'Push base image'
       run: docker push kjjanak/kjjanak-resume
+    - name: Discord notification
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      uses: Ilshidur/action-discord@master
+      with:
+        args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been built.'
