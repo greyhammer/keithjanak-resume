@@ -18,7 +18,7 @@ jobs:
     - name: 'Log in to Docker Hub'
       run: echo ${{ secrets.DockerHubPassword }} | docker login -u kjjanak --password-stdin
     - name: 'Build the Docker image'
-      run: docker build -f Dockerfile -t kjjanak/kjjanak-resume:${{ steps.buildnumber.outputs.build_number }} -t kjjanak/kjjanak-resume .
+      run: docker build -f Dockerfile -t kjjanak/kjjanak-resume:${{ steps.buildnumber.outputs.build_number }} -t kjjanak/kjjanak-resume:latest .
     - name: 'Push image'
       run: docker push kjjanak/kjjanak-resume --all-tags
     - name: Discord notification
